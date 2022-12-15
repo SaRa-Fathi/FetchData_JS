@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>fetch data</h1>
+    <div>
+    <button id="btnclick">fetch now</button>
+    </div>
+    <div id="container"></div>
+</body>
+<script>
+    let btn=document.getElementById("btnclick");
+
+    btn.addEventListener('click',fet);
+
+    function fet(){
+        fetch("https://reqres.in/api/users?page=2")
+        .then(res=>res.json())
+        .then(result=>{
+            console.log(result.data);
+            for(var i=0;i<result.data.length;i++){
+                var img = document.createElement('img');
+                img.src =result.data[i].avatar;
+                document.getElementById('container').appendChild(img);
+
+                var em = document.createElement('p');
+                em.textContent =result.data[i].email;
+                document.getElementById('container').appendChild(em);
+            }
+        })
+        .catch(err=>console.log(err))
+    }
+</script>
+</html>
